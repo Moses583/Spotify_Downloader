@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ravemaster.spotifydownloader"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,6 +41,9 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.gsonConverter)
     implementation(libs.okhttp3)
+    implementation(libs.splashscreen)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.annotation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

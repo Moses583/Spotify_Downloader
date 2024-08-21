@@ -11,6 +11,9 @@ retrofitVersion = "2.11.0"
 gsonVersion = "2.11.0"
 okhttpVersion = "5.0.0-alpha.10"
 loggingVersion = "5.0.0-alpha.10"
+glideVersion = "4.12.0"
+annotationVersion = "4.12.0"
+splashVersion = "1.0.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +27,10 @@ retrofit = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "
 gsonConverter = {group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonVersion"}
 okhttp3= {group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttpVersion"}
 logging-interceptor= {group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingVersion"}
+splashscreen = {group = "androidx.core", name = "core-splashscreen", version.ref = "splashVersion"}
+glide = {group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion"}
+glide-annotation = {group = "com.github.bumptech.glide", name = "compiler", version.ref = "annotationVersion"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

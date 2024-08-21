@@ -4,22 +4,31 @@
         <item name="colorPrimary">@color/one</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/one</item>
-        <item name="colorPrimaryContainer">@color/one</item>
+        <item name="colorPrimaryContainer">@color/two</item>
         <item name="colorOnPrimaryContainer">@color/white</item>
 
-        <item name="colorSecondary">@color/two</item>
+        <item name="colorSecondary">@color/one</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondaryContainer">@color/two</item>
         <item name="colorOnSecondaryContainer">@color/white</item>
 
-        <item name="colorTertiary">@color/three</item>
+        <item name="colorTertiary">@color/one</item>
         <item name="colorOnTertiary">@color/white</item>
         <item name="colorTertiaryContainer">@color/three</item>
         <item name="colorOnTertiaryContainer">@color/white</item>
 
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorSurfaceContainer">@color/black</item>
+
         <item name="android:colorBackground">@color/black</item>
         <item name="colorOnBackground">@color/white</item>
+    </style>
 
-
+    <style name="Theme.SpotifyDownloader.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/spotify_one</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="postSplashScreenTheme">@style/Theme.SpotifyDownloader</item>
     </style>
 </resources>
