@@ -49,7 +49,7 @@ public class SongFragment extends Fragment {
     ImageView imgSongCover;
     LinearLayout details;
     String downloadUrl="";
-
+    String title="";
     boolean success = false;
 
     @Override
@@ -114,15 +114,16 @@ public class SongFragment extends Fragment {
     private void downloadSong() {
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        request.setTitle("Downloading song...");
+        request.setTitle(title);
         request.setDescription("Downloading file...");
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis()+".mp3");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+title+".mp3");
         request.setMimeType("audio/mpeg");
 
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.enqueue(request);
+        Toast.makeText(getActivity(), "Downloading song", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -134,14 +135,24 @@ public class SongFragment extends Fragment {
         @Override
         public void didFetch(SongApiResponse response, String message) {
             progressDialog.dismiss();
-            success = response.success;
-            showData(response);
+            if (response.data == null){
+                Toast.makeText(getActivity(), "Please check the url you have copied", Toast.LENGTH_SHORT).show();
+            }else{
+                success = response.success;
+                showData(response);
+            }
         }
 
         @Override
         public void didError(String message) {
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
+            if (message.contains("timeout")){
+                manager.downloadSong(editText.getText().toString(),listener);
+            }else if(message.contains("unable")){
+                Toast.makeText(getActivity(), "Connect to the internet", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
@@ -153,7 +164,8 @@ public class SongFragment extends Fragment {
                 .load(response.data.cover)
                 .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error_image))
                 .into(imgSongCover);
-        songTitle.setText(response.data.title);
+        title = response.data.title;
+        songTitle.setText(title);
         albumName.setText(response.data.album);
         artistName.setText(response.data.artist);
         releaseDate.setText(response.data.releaseDate);

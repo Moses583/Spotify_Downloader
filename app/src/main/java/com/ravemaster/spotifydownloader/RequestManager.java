@@ -92,7 +92,7 @@ public class RequestManager {
     private interface GetSong{
         @GET("downloadSong")
         @Headers({
-                "x-rapidapi-key: ab9a345b1dmsh95573e64e14301dp11f08cjsnbb669399ee87",
+                "x-rapidapi-key: 7a9a8d4846mshcfaa4b403a596e8p1d45b5jsneca71b63bb58",
                 "x-rapidapi-host: spotify-downloader9.p.rapidapi.com"
         })
         Call<SongApiResponse> getSong(
@@ -102,7 +102,7 @@ public class RequestManager {
     private interface GetPlayList{
         @GET("downloadPlaylist")
         @Headers({
-                "x-rapidapi-key: ab9a345b1dmsh95573e64e14301dp11f08cjsnbb669399ee87",
+                "x-rapidapi-key: 7a9a8d4846mshcfaa4b403a596e8p1d45b5jsneca71b63bb58",
                 "x-rapidapi-host: spotify-downloader9.p.rapidapi.com"
         })
         Call<PlaylistApiResponse> getPlaylist(
@@ -112,7 +112,7 @@ public class RequestManager {
     private interface GetAlbum{
         @GET("downloadAlbum")
         @Headers({
-                "x-rapidapi-key: ab9a345b1dmsh95573e64e14301dp11f08cjsnbb669399ee87",
+                "x-rapidapi-key: 7a9a8d4846mshcfaa4b403a596e8p1d45b5jsneca71b63bb58",
                 "x-rapidapi-host: spotify-downloader9.p.rapidapi.com"
         })
         Call<AlbumApiResponse> getAlbum(

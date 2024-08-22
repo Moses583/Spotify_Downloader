@@ -3,38 +3,56 @@ package com.ravemaster.spotifydownloader.fragments;
 import static androidx.core.content.ContextCompat.getDrawable;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputLayout;
-import com.ravemaster.spotifydownloader.MainActivity;
 import com.ravemaster.spotifydownloader.R;
 import com.ravemaster.spotifydownloader.RequestManager;
+import com.ravemaster.spotifydownloader.adapters.PlaylistAdapter;
 import com.ravemaster.spotifydownloader.listeners.GetPlaylistListener;
 import com.ravemaster.spotifydownloader.modelsplaylist.PlaylistApiResponse;
+import com.ravemaster.spotifydownloader.modelsplaylist.Song;
+
+import java.util.ArrayList;
 
 
 public class PlaylistFragment extends Fragment {
     RequestManager manager;
-    Button search,paste;
+    Button search,paste,downloadAll;
     TextInputLayout enterLink;
     EditText editText;
-    TextView txtLoading;
+    TextView txtLoading,title,artist,songs;
+    ImageView cover;
     ProgressBar progressBar;
     Dialog progressDialog;
+    boolean success = false;
+    LinearLayout layout;
+    RecyclerView recyclerView;
+    ArrayList<Song> songsArraylist = new ArrayList<>();
+    PlaylistAdapter adapter;
 
 
     @Override
@@ -51,6 +69,7 @@ public class PlaylistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_playlist, container, false);
         initViews(view);
         showProgressDialog();
+        adapter = new PlaylistAdapter(getActivity());
         editText = enterLink.getEditText();
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,8 +83,30 @@ public class PlaylistFragment extends Fragment {
                 pasteLink();
             }
         });
-
+        downloadAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               downloadAllSongs(songsArraylist);
+            }
+        });
         return view;
+    }
+
+    private void downloadAllSongs(ArrayList<Song> songsArraylist) {
+        Toast.makeText(getActivity(), "Downloading "+String.valueOf(songsArraylist.size())+" songs.", Toast.LENGTH_SHORT).show();
+        for (Song song :
+                songsArraylist) {
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(song.downloadLink));
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+            request.setTitle(song.title);
+            request.setDescription("Downloading file...");
+            request.allowScanningByMediaScanner();
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+song.title+".mp3");
+            request.setMimeType("audio/mpeg");
+            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+            downloadManager.enqueue(request);
+        }
     }
 
     private void checkNull() {
@@ -100,15 +141,49 @@ public class PlaylistFragment extends Fragment {
         @Override
         public void didFetch(PlaylistApiResponse response, String message) {
             progressDialog.dismiss();
-            Toast.makeText(getActivity(), response.data.playlistDetails.artist , Toast.LENGTH_SHORT).show();
+            if (response.data.playlistDetails == null){
+                Toast.makeText(getActivity(), "Please check the url you have copied", Toast.LENGTH_SHORT).show();
+            }else{
+                success = response.success;
+                showData(response);
+            }
+
         }
 
         @Override
         public void didError(String message) {
             progressDialog.dismiss();
-            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            if (message.contains("timeout")){
+                manager.downLoadPlaylist(editText.getText().toString(),playlistListener);
+            }else if(message.contains("unable")){
+                Toast.makeText(getActivity(), "Connect to the internet", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_SHORT).show();
+            }
         }
     };
+
+    private void showData(PlaylistApiResponse response) {
+        if (success){
+            layout.setVisibility(View.VISIBLE);
+        }
+        Glide.with(getActivity())
+                .load(response.data.playlistDetails.cover)
+                .apply(new RequestOptions().placeholder(R.drawable.placeholder).error(R.drawable.error_image))
+                .into(cover);
+        title.setText(response.data.playlistDetails.title);
+        artist.setText(response.data.playlistDetails.artist);
+        songs.setText(String.valueOf(response.data.songs.size())+" songs");
+        showRecycler(response.data.songs);
+    }
+
+    private void showRecycler(ArrayList<Song> songs) {
+        songsArraylist = songs;
+        adapter.setSongs(songsArraylist);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setHasFixedSize(true);
+    }
 
     private void showProgressDialog() {
         progressDialog = new Dialog(getActivity());
@@ -124,12 +199,19 @@ public class PlaylistFragment extends Fragment {
         progressDialog.getWindow().setLayout(widthInPx, ViewGroup.LayoutParams.WRAP_CONTENT);
         progressDialog.getWindow().setBackgroundDrawable(getDrawable(getActivity(),R.drawable.dialog_background));
         progressDialog.setCancelable(false);
-        txtLoading.setText("Finding song");
+        txtLoading.setText("Finding playlist");
     }
 
     private void initViews(View view) {
         search = view.findViewById(R.id.btnFindPlaylist);
         paste = view.findViewById(R.id.btnPasteLink2);
+        downloadAll = view.findViewById(R.id.btnDownloadAll);
+        cover = view.findViewById(R.id.imgPlaylistCover);
+        title = view.findViewById(R.id.txtPlaylistTitle);
+        artist = view.findViewById(R.id.txtPlaylistArtist);
+        songs = view.findViewById(R.id.txtPlaylistSongs);
         enterLink = view.findViewById(R.id.enterPlaylistUrl);
+        layout = view.findViewById(R.id.playlistLayout);
+        recyclerView = view.findViewById(R.id.recyclerSongs);
     }
 }

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
         bottomNavigationView.setOnItemSelectedListener(bottomListener);
         if (hasPermissions()){
-            Toast.makeText(this, "All permissions granted", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "All permissions granted", Toast.LENGTH_SHORT).show();
         }else{
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) ||shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                 showRationaleDialog();

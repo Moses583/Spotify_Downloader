@@ -18,7 +18,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Enter playlist url"/>
+            android:hint="Paste playlist link here ⌨️"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone"
+            android:id="@+id/playlistLayout">
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -112,7 +113,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_date"
+                    android:src="@drawable/ic_song"
                     android:layout_margin="10dp"
                     android:id="@+id/imgReleaseDate2"
                     android:layout_alignParentStart="true"
@@ -122,13 +123,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
-                    android:text="Release date"
+                    android:text="Songs"
                     android:padding="10dp"
                     android:layout_margin="10dp"
-                    android:id="@+id/txtPlaylistReleaseDate"
+                    android:id="@+id/txtPlaylistSongs"
                     android:textSize="20sp"
                     android:layout_toEndOf="@id/imgReleaseDate2"/>
             </RelativeLayout>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_custom_one"
+                android:layout_margin="20dp"
+                android:text="Download all"
+                android:id="@+id/btnDownloadAll"
+                android:layout_gravity="center"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
