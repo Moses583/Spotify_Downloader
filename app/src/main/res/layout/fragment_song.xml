@@ -7,39 +7,46 @@
     tools:context=".fragments.SongFragment"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        android:layout_margin="10dp">
-        <LinearLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/enterSongUrl"
+        >
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:id="@+id/enterSongUrl"
-                >
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Enter song url"/>
+            android:hint="Enter song url"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:id="@+id/btnFindSong"
-                android:background="@drawable/button_custom_one"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btnFindSong"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_custom_one"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Paste"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btnPasteLink"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_custom_one"/>
+    </RelativeLayout>
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -47,14 +54,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/layoutDetails">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="20dp"
-                android:layout_margin="10dp">
+                android:layout_margin="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,94 +73,97 @@
                         android:src="@drawable/placeholder"
                         android:id="@+id/imgSongCover"
                         android:scaleType="centerCrop"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:textAlignment="viewStart"
-                        android:text="Song title"
-                        android:padding="8dp"
-                        android:layout_margin="8dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/one"
-                        android:id="@+id/txtSongTitle"
-                        android:textSize="20sp"/>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/artist_2"
-                            android:layout_margin="10dp"
-                            android:id="@+id/imgSinger"
-                            android:layout_alignParentStart="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:textAlignment="viewStart"
-                            android:text="Artist name"
-                            android:padding="10dp"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/black"
-                            android:id="@+id/txtArtistName"
-                            android:layout_toEndOf="@id/imgSinger"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_album"
-                            android:layout_margin="10dp"
-                            android:id="@+id/imgAlbum"
-                            android:layout_alignParentStart="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:textAlignment="viewStart"
-                            android:text="Album name"
-                            android:padding="10dp"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/black"
-                            android:id="@+id/txtAlbumName"
-                            android:layout_toEndOf="@id/imgAlbum"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_date"
-                            android:layout_margin="10dp"
-                            android:id="@+id/imgReleaseDate"
-                            android:layout_alignParentStart="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:textAlignment="viewStart"
-                            android:text="Release date"
-                            android:padding="10dp"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/black"
-                            android:id="@+id/txtReleaseDate"
-                            android:layout_toEndOf="@id/imgReleaseDate"/>
-                    </RelativeLayout>
-                    <Button
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:text="Download"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="center"
-                        android:id="@+id/btnDownloadSong"
-                        android:background="@drawable/button_custom_one"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:text="Song title"
+                android:padding="8dp"
+                android:layout_margin="8dp"
+                android:textStyle="bold"
+                android:textColor="@color/one"
+                android:id="@+id/txtSongTitle"
+                android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/artist_2"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgSinger"
+                    android:tint="@color/one"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
+                    android:text="Artist name"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/txtArtistName"
+                    android:textSize="20sp"
+                    android:layout_toEndOf="@id/imgSinger"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_album"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgAlbum"
+                    android:tint="@color/one"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
+                    android:text="Album name"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/txtAlbumName"
+                    android:layout_toEndOf="@id/imgAlbum"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_date"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgReleaseDate"
+                    android:layout_alignParentStart="true"
+                    android:tint="@color/one"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
+                    android:text="Release date"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/txtReleaseDate"
+                    android:textSize="20sp"
+                    android:layout_toEndOf="@id/imgReleaseDate"/>
+            </RelativeLayout>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Download"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/btnDownloadSong"
+                android:background="@drawable/button_custom_one"/>
         </LinearLayout>
     </ScrollView>
 

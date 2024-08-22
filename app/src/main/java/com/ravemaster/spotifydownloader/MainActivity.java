@@ -122,38 +122,6 @@ public class MainActivity extends AppCompatActivity {
         manager.downloadAlbum("https://open.spotify.com/album/3kS42vslfpYnxWkGN4JvlW",albumListener);
     }
 
-    private void getPlaylist() {
-        manager.downLoadPlaylist("https%3A%2F%2Fopen.spotify.com%2Fplaylist%2F2erlPnqkQL4KNA8HtJ5D0Q",playlistListener);
-    }
-
-    private void getSong() {
-        manager.downloadSong("https%3A%2F%2Fopen.spotify.com%2Ftrack%2F7jT3LcNj4XPYOlbNkPWNhU",listener);
-    }
-
-    private final GetPlaylistListener playlistListener = new GetPlaylistListener() {
-        @Override
-        public void didFetch(PlaylistApiResponse response, String message) {
-            Toast.makeText(MainActivity.this, response.data.playlistDetails.artist , Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private final GetSongListener listener = new GetSongListener() {
-        @Override
-        public void didFetch(SongApiResponse response, String message) {
-            Toast.makeText(MainActivity.this, response.data.artist, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-    };
-
     private final GetAlbumListener albumListener = new GetAlbumListener() {
         @Override
         public void didFetch(AlbumApiResponse response, String message) {

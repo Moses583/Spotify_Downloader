@@ -4,6 +4,8 @@ import static androidx.core.content.ContextCompat.getDrawable;
 
 import android.app.Dialog;
 import android.app.DownloadManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +39,7 @@ import java.util.Locale;
 
 public class SongFragment extends Fragment {
 
-    Button button,download;
+    Button button,download,paste;
     TextInputLayout enterSongUrl;
     EditText editText;
     RequestManager manager;
@@ -67,8 +69,7 @@ public class SongFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
-                getSong(editText.getText().toString());
+                checkNull();
             }
         });
         download.setOnClickListener(new View.OnClickListener() {
@@ -77,30 +78,51 @@ public class SongFragment extends Fragment {
                 downloadSong();
             }
         });
+        paste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pasteLink();
+            }
+        });
         return view;
     }
 
-    private void downloadSong() {
-//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
-//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-//        request.setTitle("Downloading song...");
-//        request.setDescription("Downloading file...");
-//        request.allowScanningByMediaScanner();
-//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis());
-//
-//        DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-//        downloadManager.enqueue(request);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(downloadUrl));
-        intent.setPackage("com.android.chrome");
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            // Fallback to default browser if Chrome is not installed
-            intent.setPackage(null);
-            startActivity(intent);
+    private void pasteLink() {
+        ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        if (clipboardManager != null && clipboardManager.hasPrimaryClip()){
+            ClipData data = clipboardManager.getPrimaryClip();
+            if (data != null && data.getItemCount()>0){
+                CharSequence link = data.getItemAt(0).getText().toString();
+                editText.setText(link);
+            }
         }
+    }
+
+    private void checkNull() {
+        String s = editText.getText().toString();
+        if(s.isEmpty()){
+            enterSongUrl.setErrorEnabled(true);
+            enterSongUrl.setError("You need to enter link");
+        }
+        else{
+            progressDialog.show();
+            enterSongUrl.setErrorEnabled(false);
+            getSong(s);
+        }
+    }
+
+    private void downloadSong() {
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(downloadUrl));
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+        request.setTitle("Downloading song...");
+        request.setDescription("Downloading file...");
+        request.allowScanningByMediaScanner();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+System.currentTimeMillis()+".mp3");
+        request.setMimeType("audio/mpeg");
+
+        DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+        downloadManager.enqueue(request);
 
     }
 
@@ -159,6 +181,7 @@ public class SongFragment extends Fragment {
         button = view.findViewById(R.id.btnFindSong);
         enterSongUrl = view.findViewById(R.id.enterSongUrl);
         download = view.findViewById(R.id.btnDownloadSong);
+        paste = view.findViewById(R.id.btnPasteLink);
         artistName = view.findViewById(R.id.txtArtistName);
         albumName = view.findViewById(R.id.txtAlbumName);
         releaseDate = view.findViewById(R.id.txtReleaseDate);
