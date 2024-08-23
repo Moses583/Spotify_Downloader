@@ -101,10 +101,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:src="@drawable/artist_2"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_centerVertical="true"
                     android:id="@+id/imgSinger"
                     android:tint="@color/two"
                     android:layout_alignParentStart="true"/>
@@ -117,19 +118,19 @@
                     android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/txtArtistName"
-                    android:textSize="20sp"
                     android:layout_toEndOf="@id/imgSinger"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_album"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/imgAlbum"
                     android:tint="@color/two"
                     android:layout_alignParentStart="true"/>
@@ -142,8 +143,7 @@
                     android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
-                    android:textSize="20sp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/txtAlbumName"
                     android:layout_toEndOf="@id/imgAlbum"/>
             </RelativeLayout>
@@ -151,10 +151,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_date"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/imgReleaseDate"
                     android:layout_alignParentStart="true"
                     android:tint="@color/two"/>
@@ -167,9 +168,8 @@
                     android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
                     android:id="@+id/txtReleaseDate"
-                    android:textSize="20sp"
                     android:layout_toEndOf="@id/imgReleaseDate"/>
             </RelativeLayout>
         </LinearLayout>

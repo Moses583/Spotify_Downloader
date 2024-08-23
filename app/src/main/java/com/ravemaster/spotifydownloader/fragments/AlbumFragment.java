@@ -143,7 +143,7 @@ public class AlbumFragment extends Fragment {
         @Override
         public void didFetch(AlbumApiResponse response, String message) {
             progressDialog.dismiss();
-            if (response.data.albumDetails == null){
+            if (response.data == null){
                 Toast.makeText(getActivity(), "The url you have copied doesn't seem to work, try copying and pasting it one more time 🥺.", Toast.LENGTH_LONG).show();
             }else{
                 success = response.success;
@@ -201,7 +201,7 @@ public class AlbumFragment extends Fragment {
         progressDialog.getWindow().setLayout(widthInPx, ViewGroup.LayoutParams.WRAP_CONTENT);
         progressDialog.getWindow().setBackgroundDrawable(getDrawable(getActivity(),R.drawable.dialog_background));
         progressDialog.setCancelable(false);
-        txtLoading.setText("Finding album");
+        txtLoading.setText("Loading album ⌛");
     }
 
     private void initViews(View view) {

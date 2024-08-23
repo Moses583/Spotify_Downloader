@@ -27,11 +27,4 @@
 
     <style name="Theme.SpotifyDownloader" parent="Base.Theme.SpotifyDownloader" />
 
-    <!-- Splash screen theme -->
-    <style name="Theme.SpotifyDownloader.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/spotify_one</item>
-        <item name="windowSplashScreenAnimationDuration">2000</item>
-        <item name="postSplashScreenTheme">@style/Theme.SpotifyDownloader</item>
-    </style>
 </resources>

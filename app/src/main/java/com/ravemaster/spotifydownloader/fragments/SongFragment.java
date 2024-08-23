@@ -186,7 +186,7 @@ public class SongFragment extends Fragment {
         progressDialog.getWindow().setLayout(widthInPx, ViewGroup.LayoutParams.WRAP_CONTENT);
         progressDialog.getWindow().setBackgroundDrawable(getDrawable(getActivity(),R.drawable.dialog_background));
         progressDialog.setCancelable(false);
-        txtLoading.setText("Finding song");
+        txtLoading.setText("Loading song ⌛");
     }
 
     private void initViews(View view) {

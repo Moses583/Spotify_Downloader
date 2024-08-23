@@ -24,11 +24,5 @@
         <item name="android:colorBackground">@color/black</item>
         <item name="colorOnBackground">@color/white</item>
     </style>
-
-    <style name="Theme.SpotifyDownloader.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/black</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/spotify_one</item>
-        <item name="windowSplashScreenAnimationDuration">2000</item>
-        <item name="postSplashScreenTheme">@style/Theme.SpotifyDownloader</item>
-    </style>
+    <style name="Theme.SpotifyDownloader" parent="Base.Theme.SpotifyDownloader" />
 </resources>

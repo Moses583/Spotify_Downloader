@@ -141,7 +141,7 @@ public class PlaylistFragment extends Fragment {
         @Override
         public void didFetch(PlaylistApiResponse response, String message) {
             progressDialog.dismiss();
-            if (response.data.playlistDetails == null){
+            if (response.data == null){
                 Toast.makeText(getActivity(), "The url you have copied doesn't seem to work, try copying and pasting it one more time 🥺.", Toast.LENGTH_LONG).show();
             }else{
                 success = response.success;
@@ -199,7 +199,7 @@ public class PlaylistFragment extends Fragment {
         progressDialog.getWindow().setLayout(widthInPx, ViewGroup.LayoutParams.WRAP_CONTENT);
         progressDialog.getWindow().setBackgroundDrawable(getDrawable(getActivity(),R.drawable.dialog_background));
         progressDialog.setCancelable(false);
-        txtLoading.setText("Finding playlist");
+        txtLoading.setText("Loading playlist⌛");
     }
 
     private void initViews(View view) {
