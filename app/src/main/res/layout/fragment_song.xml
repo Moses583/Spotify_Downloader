@@ -14,11 +14,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/enterSongUrl"
-        >
+        app:endIconMode="clear_text">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Paste song link here ⌨️"/>
+            android:hint="Paste song link here ⌨️"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/layoutDetails">
 
             <androidx.cardview.widget.CardView
@@ -75,6 +76,15 @@
                         android:scaleType="centerCrop"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Download"
+                android:layout_gravity="center"
+                android:id="@+id/btnDownloadSong"
+                android:background="@drawable/button_custom_one"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,7 +94,7 @@
                 android:padding="8dp"
                 android:layout_margin="8dp"
                 android:textStyle="bold"
-                android:textColor="@color/one"
+                android:textColor="@color/two"
                 android:id="@+id/txtSongTitle"
                 android:textSize="20sp"/>
             <RelativeLayout
@@ -96,7 +106,7 @@
                     android:src="@drawable/artist_2"
                     android:layout_margin="10dp"
                     android:id="@+id/imgSinger"
-                    android:tint="@color/one"
+                    android:tint="@color/two"
                     android:layout_alignParentStart="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,7 +114,7 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Artist name"
-                    android:textColor="@color/one"
+                    android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
@@ -121,7 +131,7 @@
                     android:src="@drawable/ic_album"
                     android:layout_margin="10dp"
                     android:id="@+id/imgAlbum"
-                    android:tint="@color/one"
+                    android:tint="@color/two"
                     android:layout_alignParentStart="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,7 +139,7 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Album name"
-                    android:textColor="@color/one"
+                    android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
@@ -147,14 +157,14 @@
                     android:layout_margin="10dp"
                     android:id="@+id/imgReleaseDate"
                     android:layout_alignParentStart="true"
-                    android:tint="@color/one"/>
+                    android:tint="@color/two"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Release date"
-                    android:textColor="@color/one"
+                    android:textColor="@color/two"
                     android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
@@ -162,14 +172,6 @@
                     android:textSize="20sp"
                     android:layout_toEndOf="@id/imgReleaseDate"/>
             </RelativeLayout>
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="Download"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
-                android:id="@+id/btnDownloadSong"
-                android:background="@drawable/button_custom_one"/>
         </LinearLayout>
     </ScrollView>
 

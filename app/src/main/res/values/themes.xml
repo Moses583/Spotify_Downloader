@@ -1,18 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.SpotifyDownloader" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/one</item>
+        <item name="colorPrimary">@color/two</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="colorPrimaryDark">@color/one</item>
+        <item name="colorPrimaryDark">@color/two</item>
         <item name="colorPrimaryContainer">@color/two</item>
         <item name="colorOnPrimaryContainer">@color/black</item>
 
-        <item name="colorSecondary">@color/one</item>
+        <item name="colorSecondary">@color/two</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorSecondaryContainer">@color/two</item>
         <item name="colorOnSecondaryContainer">@color/black</item>
 
-        <item name="colorTertiary">@color/one</item>
+        <item name="colorTertiary">@color/two</item>
         <item name="colorOnTertiary">@color/black</item>
         <item name="colorTertiaryContainer">@color/three</item>
         <item name="colorOnTertiaryContainer">@color/black</item>

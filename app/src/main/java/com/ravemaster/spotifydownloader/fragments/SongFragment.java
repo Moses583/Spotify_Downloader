@@ -123,7 +123,7 @@ public class SongFragment extends Fragment {
 
         DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.enqueue(request);
-        Toast.makeText(getActivity(), "Downloading song", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Downloading song", Toast.LENGTH_LONG).show();
 
     }
 
@@ -136,7 +136,7 @@ public class SongFragment extends Fragment {
         public void didFetch(SongApiResponse response, String message) {
             progressDialog.dismiss();
             if (response.data == null){
-                Toast.makeText(getActivity(), "Please check the url you have copied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "The url you have copied doesn't seem to work, try copying and pasting it one more time 🥺.", Toast.LENGTH_LONG).show();
             }else{
                 success = response.success;
                 showData(response);
@@ -149,9 +149,9 @@ public class SongFragment extends Fragment {
             if (message.contains("timeout")){
                 manager.downloadSong(editText.getText().toString(),listener);
             }else if(message.contains("unable")){
-                Toast.makeText(getActivity(), "Connect to the internet", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_LONG).show();
             }
         }
     };

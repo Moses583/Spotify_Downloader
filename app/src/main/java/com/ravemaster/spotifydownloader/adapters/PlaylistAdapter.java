@@ -75,7 +75,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Downloading song", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Downloading song", Toast.LENGTH_LONG).show();
                 downloadSong(downloadUrl,title);
             }
         });

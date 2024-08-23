@@ -68,11 +68,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                if (bottomNavigationView.getMenu().getItem(position).getTitle().equals("Song")){
-                    toolbar.setTitle("Song");
-                }else{
-                    toolbar.setTitle(bottomNavigationView.getMenu().getItem(position).getTitle());
-                }
             }
         });
         bottomNavigationView.setOnItemSelectedListener(bottomListener);
@@ -118,37 +113,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getAlbum() {
-        manager.downloadAlbum("https://open.spotify.com/album/3kS42vslfpYnxWkGN4JvlW",albumListener);
-    }
-
-    private final GetAlbumListener albumListener = new GetAlbumListener() {
-        @Override
-        public void didFetch(AlbumApiResponse response, String message) {
-            Toast.makeText(MainActivity.this, response.data.albumDetails.artist, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void didError(String message) {
-            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-        }
-    };
-
     private final NavigationBarView.OnItemSelectedListener bottomListener = new NavigationBarView.OnItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.idSong){
                 viewPager2.setCurrentItem(0);
-                toolbar.setTitle("Song");
                 return true;
             } else if (item.getItemId() == R.id.idPlaylist){
                 viewPager2.setCurrentItem(1);
-                toolbar.setTitle("PlayList");
                 return true;
             }
             else if (item.getItemId() == R.id.idAlbum){
                 viewPager2.setCurrentItem(2);
-                toolbar.setTitle("Album");
                 return true;
             }
             return false;
