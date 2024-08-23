@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/playlistLayout">
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -101,6 +101,8 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Artist name"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:id="@+id/txtPlaylistArtist"
@@ -124,6 +126,8 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Songs"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:id="@+id/txtPlaylistSongs"

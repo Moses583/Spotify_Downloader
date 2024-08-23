@@ -6,7 +6,7 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     android:layout_margin="20dp"
-    android:id="@+id/playlistCardView"
+    android:id="@+id/albumCardView"
     app:cardBackgroundColor="@color/two">
 
     <LinearLayout
@@ -18,13 +18,13 @@
             android:layout_height="120dp"
             android:src="@drawable/placeholder"
             android:scaleType="centerCrop"
-            android:id="@+id/imgTrackCover"/>
+            android:id="@+id/imgTrackCoverAlbum"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Title"
             android:layout_margin="5dp"
-            android:id="@+id/trackTitle"
+            android:id="@+id/trackTitleAlbum"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:singleLine="true"
@@ -37,16 +37,16 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/trackDummy1"
+                android:id="@+id/trackDummy1Album"
                 android:src="@drawable/artist_2"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Artist"
                 android:layout_margin="5dp"
-                android:id="@+id/trackArtist"
-                android:layout_toEndOf="@id/trackDummy1"
+                android:id="@+id/trackArtistAlbum"
+                android:layout_toEndOf="@id/trackDummy1Album"
                 android:layout_centerVertical="true"
                 android:singleLine="true"
                 android:scrollHorizontally="true"
@@ -61,16 +61,16 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:id="@+id/trackDummy2"
+                android:id="@+id/trackDummy2Album"
                 android:src="@drawable/ic_album"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Album"
                 android:layout_margin="5dp"
-                android:id="@+id/trackAlbum"
-                android:layout_toEndOf="@id/trackDummy2"
+                android:id="@+id/trackAlbumAlbum"
+                android:layout_toEndOf="@id/trackDummy2Album"
                 android:layout_centerVertical="true"
                 android:singleLine="true"
                 android:scrollHorizontally="true"
@@ -85,7 +85,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:src="@drawable/ic_download"
-            android:id="@+id/imgDownloadTrack"
+            android:id="@+id/imgDownloadTrackAlbum"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground" />

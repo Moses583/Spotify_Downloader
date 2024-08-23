@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/layoutDetails">
 
             <androidx.cardview.widget.CardView
@@ -104,6 +104,8 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Artist name"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:id="@+id/txtArtistName"
@@ -127,6 +129,8 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Album name"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:textSize="20sp"
@@ -150,6 +154,8 @@
                     android:layout_gravity="start"
                     android:textAlignment="viewStart"
                     android:text="Release date"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
                     android:padding="10dp"
                     android:layout_margin="10dp"
                     android:id="@+id/txtReleaseDate"

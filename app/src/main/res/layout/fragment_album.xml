@@ -1,14 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AlbumFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.AlbumFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/enterAlbumUrl"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Paste album link here ⌨️"/>
 
-</FrameLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btnFindAlbum"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/button_custom_one"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Paste"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/btnPasteLink3"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_custom_one"/>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/albumLayout">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="20dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/placeholder"
+                        android:scaleType="centerCrop"
+                        android:id="@+id/imgAlbumCover"/>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:text="Album title"
+                android:padding="8dp"
+                android:layout_margin="8dp"
+                android:textStyle="bold"
+                android:textColor="@color/one"
+                android:id="@+id/txtAlbumTitle"
+                android:textSize="20sp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/artist_2"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgSinger3"
+                    android:tint="@color/one"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
+                    android:text="Artist name"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/txtAlbumArtist"
+                    android:textSize="20sp"
+                    android:layout_toEndOf="@id/imgSinger3"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_song"
+                    android:layout_margin="10dp"
+                    android:id="@+id/imgReleaseDate3"
+                    android:layout_alignParentStart="true"
+                    android:tint="@color/one"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="viewStart"
+                    android:text="Songs"
+                    android:textColor="@color/one"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_margin="10dp"
+                    android:id="@+id/txtAlbumSongs"
+                    android:textSize="20sp"
+                    android:layout_toEndOf="@id/imgReleaseDate3"/>
+            </RelativeLayout>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_custom_one"
+                android:layout_margin="20dp"
+                android:text="Download all"
+                android:id="@+id/btnDownloadAll2"
+                android:layout_gravity="center"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/recyclerSongs2"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

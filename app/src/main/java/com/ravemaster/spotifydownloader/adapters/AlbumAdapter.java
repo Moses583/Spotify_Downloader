@@ -24,15 +24,15 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.ravemaster.spotifydownloader.R;
-import com.ravemaster.spotifydownloader.modelsplaylist.Song;
+import com.ravemaster.spotifydownloader.modelsalbum.Song;
 
 import java.util.ArrayList;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumViewHolder> {
     private Context context;
     private ArrayList<Song> songs = new ArrayList<>();
 
-    public PlaylistAdapter(Context context) {
+    public AlbumAdapter(Context context) {
         this.context = context;
     }
 
@@ -43,13 +43,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
 
     @NonNull
     @Override
-    public PlaylistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.song_list_item,parent,false);
-        return new PlaylistViewHolder(view);
+    public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.song_list_item_two,parent,false);
+        return new AlbumViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlaylistViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {
         String title = songs.get(position).title;
         String artist = songs.get(position).artist;
         String album = songs.get(position).album;
@@ -125,17 +125,17 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
     }
 
 }
-class PlaylistViewHolder extends RecyclerView.ViewHolder {
+class AlbumViewHolder extends RecyclerView.ViewHolder {
     TextView title,artist,album;
     ImageView cover,download;
     CardView cardView;
-    public PlaylistViewHolder(@NonNull View itemView) {
+    public AlbumViewHolder(@NonNull View itemView) {
         super(itemView);
-        title = itemView.findViewById(R.id.trackTitle);
-        artist = itemView.findViewById(R.id.trackArtist);
-        album = itemView.findViewById(R.id.trackAlbum);
-        cover = itemView.findViewById(R.id.imgTrackCover);
-        download = itemView.findViewById(R.id.imgDownloadTrack);
-        cardView = itemView.findViewById(R.id.playlistCardView);
+        title = itemView.findViewById(R.id.trackTitleAlbum);
+        artist = itemView.findViewById(R.id.trackArtistAlbum);
+        album = itemView.findViewById(R.id.trackAlbumAlbum);
+        cover = itemView.findViewById(R.id.imgTrackCoverAlbum);
+        download = itemView.findViewById(R.id.imgDownloadTrackAlbum);
+        cardView = itemView.findViewById(R.id.albumCardView);
     }
 }
