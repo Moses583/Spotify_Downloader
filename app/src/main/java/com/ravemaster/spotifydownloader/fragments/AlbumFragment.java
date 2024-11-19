@@ -56,6 +56,8 @@ public class AlbumFragment extends Fragment {
     ArrayList<Song> songsArraylist = new ArrayList<>();
     AlbumAdapter adapter;
 
+    private int currentMethodIndex = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -135,11 +137,30 @@ public class AlbumFragment extends Fragment {
         }
     }
 
-    private void getAlbum(String s) {
-        manager.downloadAlbum(s,albumListener);
+    private void getAlbum(String url) {
+        switch (currentMethodIndex){
+            case 0:
+                manager.downloadAlbum(url,listener);
+                break;
+            case 1:
+                manager.downloadAlbum1(url,listener);
+                break;
+            case 2:
+                manager.downloadAlbum2(url,listener);
+                break;
+            case 3:
+                manager.downloadAlbum3(url,listener);
+                break;
+            case 4:
+                manager.downloadAlbum4(url,listener);
+                break;
+        }
+
+        // Increment the index and wrap around if necessary
+        currentMethodIndex = (currentMethodIndex + 1) % 4;
     }
 
-    private final GetAlbumListener albumListener = new GetAlbumListener() {
+    private final GetAlbumListener listener = new GetAlbumListener() {
         @Override
         public void didFetch(AlbumApiResponse response, String message) {
             progressDialog.dismiss();
@@ -156,7 +177,7 @@ public class AlbumFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                manager.downloadAlbum(editText.getText().toString(),albumListener);
+                manager.downloadAlbum(editText.getText().toString(), listener);
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{

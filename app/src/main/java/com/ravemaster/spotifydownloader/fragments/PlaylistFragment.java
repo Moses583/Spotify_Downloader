@@ -54,6 +54,8 @@ public class PlaylistFragment extends Fragment {
     ArrayList<Song> songsArraylist = new ArrayList<>();
     PlaylistAdapter adapter;
 
+    private int currentMethodIndex = 0;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,11 +135,30 @@ public class PlaylistFragment extends Fragment {
         }
     }
 
-    private void getPlaylist(String s) {
-        manager.downLoadPlaylist(s,playlistListener);
+    private void getPlaylist(String url) {
+        switch (currentMethodIndex){
+            case 0:
+                manager.downLoadPlaylist(url,listener);
+                break;
+            case 1:
+                manager.downLoadPlaylist1(url,listener);
+                break;
+            case 2:
+                manager.downLoadPlaylist2(url,listener);
+                break;
+            case 3:
+                manager.downLoadPlaylist3(url,listener);
+                break;
+            case 4:
+                manager.downLoadPlaylist4(url,listener);
+                break;
+        }
+
+        // Increment the index and wrap around if necessary
+        currentMethodIndex = (currentMethodIndex + 1) % 4;
     }
 
-    private final GetPlaylistListener playlistListener = new GetPlaylistListener() {
+    private final GetPlaylistListener listener = new GetPlaylistListener() {
         @Override
         public void didFetch(PlaylistApiResponse response, String message) {
             progressDialog.dismiss();
@@ -154,7 +175,7 @@ public class PlaylistFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                manager.downLoadPlaylist(editText.getText().toString(),playlistListener);
+                manager.downLoadPlaylist(editText.getText().toString(),listener);
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{

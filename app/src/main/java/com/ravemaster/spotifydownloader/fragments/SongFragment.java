@@ -52,6 +52,8 @@ public class SongFragment extends Fragment {
     String title="";
     boolean success = false;
 
+    private int currentMethodIndex = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +130,26 @@ public class SongFragment extends Fragment {
     }
 
     private void getSong(String url) {
-        manager.downloadSong(url,listener);
+        switch (currentMethodIndex){
+            case 0:
+                manager.downloadSong(url,listener);
+                break;
+            case 1:
+                manager.downloadSong1(url,listener);
+                break;
+            case 2:
+                manager.downloadSong2(url,listener);
+                break;
+            case 3:
+                manager.downloadSong3(url,listener);
+                break;
+            case 4:
+                manager.downloadSong4(url,listener);
+                break;
+        }
+
+        // Increment the index and wrap around if necessary
+        currentMethodIndex = (currentMethodIndex + 1) % 4;
     }
 
     private final GetSongListener listener = new GetSongListener() {
