@@ -157,7 +157,7 @@ public class AlbumFragment extends Fragment {
         }
 
         // Increment the index and wrap around if necessary
-        currentMethodIndex = (currentMethodIndex + 1) % 4;
+        currentMethodIndex = (currentMethodIndex + 1) % 5;
     }
 
     private final GetAlbumListener listener = new GetAlbumListener() {
@@ -177,11 +177,30 @@ public class AlbumFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                manager.downloadAlbum(editText.getText().toString(), listener);
+                switch (currentMethodIndex){
+                    case 0:
+                        manager.downloadAlbum(editText.getText().toString(),listener);
+                        break;
+                    case 1:
+                        manager.downloadAlbum1(editText.getText().toString(),listener);
+                        break;
+                    case 2:
+                        manager.downloadAlbum2(editText.getText().toString(),listener);
+                        break;
+                    case 3:
+                        manager.downloadAlbum3(editText.getText().toString(),listener);
+                        break;
+                    case 4:
+                        manager.downloadAlbum4(editText.getText().toString(),listener);
+                        break;
+                }
+
+                // Increment the index and wrap around if necessary
+                currentMethodIndex = (currentMethodIndex + 1) % 5;
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
     };

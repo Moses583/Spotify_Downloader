@@ -147,9 +147,7 @@ public class SongFragment extends Fragment {
                 manager.downloadSong4(url,listener);
                 break;
         }
-
-        // Increment the index and wrap around if necessary
-        currentMethodIndex = (currentMethodIndex + 1) % 4;
+        currentMethodIndex = (currentMethodIndex + 1) % 5;
     }
 
     private final GetSongListener listener = new GetSongListener() {
@@ -168,11 +166,28 @@ public class SongFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                manager.downloadSong(editText.getText().toString(),listener);
+                switch (currentMethodIndex){
+                    case 0:
+                        manager.downloadSong(editText.getText().toString(),listener);
+                        break;
+                    case 1:
+                        manager.downloadSong1(editText.getText().toString(),listener);
+                        break;
+                    case 2:
+                        manager.downloadSong2(editText.getText().toString(),listener);
+                        break;
+                    case 3:
+                        manager.downloadSong3(editText.getText().toString(),listener);
+                        break;
+                    case 4:
+                        manager.downloadSong4(editText.getText().toString(),listener);
+                        break;
+                }
+                currentMethodIndex = (currentMethodIndex + 1) % 5;
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), "You have exceeded your maximum download requests for today. Come back tomorrow for more 😁👍!!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
         }
     };

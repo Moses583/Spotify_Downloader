@@ -9,6 +9,10 @@ import com.ravemaster.spotifydownloader.listeners.GetPlaylistListener;
 import com.ravemaster.spotifydownloader.listeners.GetSongListener;
 import com.ravemaster.spotifydownloader.modelssongs.SongApiResponse;
 
+import java.util.Arrays;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,6 +25,11 @@ import retrofit2.http.Query;
 
 public class RequestManager {
     Context context;
+
+//    OkHttpClient client = new OkHttpClient.Builder()
+//            .protocols(Arrays.asList(Protocol.HTTP_1_1)) // Force HTTP/1.1
+//            .build();
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://spotify-downloader9.p.rapidapi.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -324,7 +333,7 @@ public class RequestManager {
         Call<SongApiResponse> getSong(
                 @Query("songId") String songId,
                 @Header("x-rapidapi-key") String apiKey,
-                @Header("x-rapidapi-host:") String apiHost
+                @Header("x-rapidapi-host") String apiHost
         );
     }
     private interface GetPlayList{
@@ -332,7 +341,7 @@ public class RequestManager {
         Call<PlaylistApiResponse> getPlaylist(
                 @Query("playlistId") String playlistId,
                 @Header("x-rapidapi-key") String apiKey,
-                @Header("x-rapidapi-host:") String apiHost
+                @Header("x-rapidapi-host") String apiHost
         );
     }
     private interface GetAlbum{
@@ -340,7 +349,7 @@ public class RequestManager {
         Call<AlbumApiResponse> getAlbum(
                 @Query("albumId") String albumId,
                 @Header("x-rapidapi-key") String apiKey,
-                @Header("x-rapidapi-host:") String apiHost
+                @Header("x-rapidapi-host") String apiHost
         );
     }
 }
