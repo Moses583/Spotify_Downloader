@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class AlbumFragment extends Fragment {
 
     RequestManager manager;
-    Button search,paste,downloadAll;
+    Button search,paste;
     TextInputLayout enterLink;
     EditText editText;
     TextView txtLoading,title,artist,songs;
@@ -55,8 +55,6 @@ public class AlbumFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<Song> songsArraylist = new ArrayList<>();
     AlbumAdapter adapter;
-
-    private int currentMethodIndex = 0;
 
 
     @Override
@@ -87,30 +85,7 @@ public class AlbumFragment extends Fragment {
                 pasteLink();
             }
         });
-        downloadAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                downloadAllSongs(songsArraylist);
-            }
-        });
         return view;
-    }
-
-    private void downloadAllSongs(ArrayList<Song> songsArraylist) {
-        Toast.makeText(getActivity(), "Downloading "+String.valueOf(songsArraylist.size())+" songs.", Toast.LENGTH_LONG).show();
-        for (Song song :
-                songsArraylist) {
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(song.downloadLink));
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-            request.setTitle(song.title);
-            request.setDescription("Downloading file...");
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+song.title+".mp3");
-            request.setMimeType("audio/mpeg");
-            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-        }
     }
 
     private void checkNull() {
@@ -138,26 +113,7 @@ public class AlbumFragment extends Fragment {
     }
 
     private void getAlbum(String url) {
-        switch (currentMethodIndex){
-            case 0:
-                manager.downloadAlbum(url,listener);
-                break;
-            case 1:
-                manager.downloadAlbum1(url,listener);
-                break;
-            case 2:
-                manager.downloadAlbum2(url,listener);
-                break;
-            case 3:
-                manager.downloadAlbum3(url,listener);
-                break;
-            case 4:
-                manager.downloadAlbum4(url,listener);
-                break;
-        }
-
-        // Increment the index and wrap around if necessary
-        currentMethodIndex = (currentMethodIndex + 1) % 5;
+        manager.downloadAlbum(url,listener);
     }
 
     private final GetAlbumListener listener = new GetAlbumListener() {
@@ -177,30 +133,11 @@ public class AlbumFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                switch (currentMethodIndex){
-                    case 0:
-                        manager.downloadAlbum(editText.getText().toString(),listener);
-                        break;
-                    case 1:
-                        manager.downloadAlbum1(editText.getText().toString(),listener);
-                        break;
-                    case 2:
-                        manager.downloadAlbum2(editText.getText().toString(),listener);
-                        break;
-                    case 3:
-                        manager.downloadAlbum3(editText.getText().toString(),listener);
-                        break;
-                    case 4:
-                        manager.downloadAlbum4(editText.getText().toString(),listener);
-                        break;
-                }
-
-                // Increment the index and wrap around if necessary
-                currentMethodIndex = (currentMethodIndex + 1) % 5;
+                manager.downloadAlbum(editText.getText().toString(),listener);
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Try again later", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -247,7 +184,6 @@ public class AlbumFragment extends Fragment {
     private void initViews(View view) {
         search = view.findViewById(R.id.btnFindAlbum);
         paste = view.findViewById(R.id.btnPasteLink3);
-        downloadAll = view.findViewById(R.id.btnDownloadAll2);
         cover = view.findViewById(R.id.imgAlbumCover);
         title = view.findViewById(R.id.txtAlbumTitle);
         artist = view.findViewById(R.id.txtAlbumArtist);

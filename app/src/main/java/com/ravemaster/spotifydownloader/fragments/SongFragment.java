@@ -130,24 +130,7 @@ public class SongFragment extends Fragment {
     }
 
     private void getSong(String url) {
-        switch (currentMethodIndex){
-            case 0:
-                manager.downloadSong(url,listener);
-                break;
-            case 1:
-                manager.downloadSong1(url,listener);
-                break;
-            case 2:
-                manager.downloadSong2(url,listener);
-                break;
-            case 3:
-                manager.downloadSong3(url,listener);
-                break;
-            case 4:
-                manager.downloadSong4(url,listener);
-                break;
-        }
-        currentMethodIndex = (currentMethodIndex + 1) % 5;
+        manager.downloadSong(url,listener);
     }
 
     private final GetSongListener listener = new GetSongListener() {
@@ -166,28 +149,11 @@ public class SongFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                switch (currentMethodIndex){
-                    case 0:
-                        manager.downloadSong(editText.getText().toString(),listener);
-                        break;
-                    case 1:
-                        manager.downloadSong1(editText.getText().toString(),listener);
-                        break;
-                    case 2:
-                        manager.downloadSong2(editText.getText().toString(),listener);
-                        break;
-                    case 3:
-                        manager.downloadSong3(editText.getText().toString(),listener);
-                        break;
-                    case 4:
-                        manager.downloadSong4(editText.getText().toString(),listener);
-                        break;
-                }
-                currentMethodIndex = (currentMethodIndex + 1) % 5;
+                manager.downloadSong(editText.getText().toString(),listener);
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Try again later", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -204,7 +170,7 @@ public class SongFragment extends Fragment {
         songTitle.setText(title);
         albumName.setText(response.data.album);
         artistName.setText(response.data.artist);
-        releaseDate.setText(response.data.releaseDate);
+        releaseDate.setText(response.data.releaseDate.toString());
         downloadUrl = response.data.downloadLink;
     }
 

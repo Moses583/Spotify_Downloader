@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 public class PlaylistFragment extends Fragment {
     RequestManager manager;
-    Button search,paste,downloadAll;
+    Button search,paste;
     TextInputLayout enterLink;
     EditText editText;
     TextView txtLoading,title,artist,songs;
@@ -53,8 +53,6 @@ public class PlaylistFragment extends Fragment {
     RecyclerView recyclerView;
     ArrayList<Song> songsArraylist = new ArrayList<>();
     PlaylistAdapter adapter;
-
-    private int currentMethodIndex = 0;
 
 
     @Override
@@ -85,30 +83,7 @@ public class PlaylistFragment extends Fragment {
                 pasteLink();
             }
         });
-        downloadAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               downloadAllSongs(songsArraylist);
-            }
-        });
         return view;
-    }
-
-    private void downloadAllSongs(ArrayList<Song> songsArraylist) {
-        Toast.makeText(getActivity(), "Downloading "+String.valueOf(songsArraylist.size())+" songs.", Toast.LENGTH_LONG).show();
-        for (Song song :
-                songsArraylist) {
-            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(song.downloadLink));
-            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-            request.setTitle(song.title);
-            request.setDescription("Downloading file...");
-            request.allowScanningByMediaScanner();
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,""+song.title+".mp3");
-            request.setMimeType("audio/mpeg");
-            DownloadManager downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
-            downloadManager.enqueue(request);
-        }
     }
 
     private void checkNull() {
@@ -136,26 +111,7 @@ public class PlaylistFragment extends Fragment {
     }
 
     private void getPlaylist(String url) {
-        switch (currentMethodIndex){
-            case 0:
-                manager.downLoadPlaylist(url,listener);
-                break;
-            case 1:
-                manager.downLoadPlaylist1(url,listener);
-                break;
-            case 2:
-                manager.downLoadPlaylist2(url,listener);
-                break;
-            case 3:
-                manager.downLoadPlaylist3(url,listener);
-                break;
-            case 4:
-                manager.downLoadPlaylist4(url,listener);
-                break;
-        }
-
-        // Increment the index and wrap around if necessary
-        currentMethodIndex = (currentMethodIndex + 1) % 5;
+        manager.downLoadPlaylist(url,listener);
     }
 
     private final GetPlaylistListener listener = new GetPlaylistListener() {
@@ -175,30 +131,11 @@ public class PlaylistFragment extends Fragment {
         public void didError(String message) {
             progressDialog.dismiss();
             if (message.contains("timeout")){
-                switch (currentMethodIndex){
-                    case 0:
-                        manager.downLoadPlaylist(editText.getText().toString(),listener);
-                        break;
-                    case 1:
-                        manager.downLoadPlaylist1(editText.getText().toString(),listener);
-                        break;
-                    case 2:
-                        manager.downLoadPlaylist2(editText.getText().toString(),listener);
-                        break;
-                    case 3:
-                        manager.downLoadPlaylist3(editText.getText().toString(),listener);
-                        break;
-                    case 4:
-                        manager.downLoadPlaylist4(editText.getText().toString(),listener);
-                        break;
-                }
-
-                // Increment the index and wrap around if necessary
-                currentMethodIndex = (currentMethodIndex + 1) % 5;
+                manager.downLoadPlaylist(editText.getText().toString(),listener);
             }else if(message.contains("unable")){
                 Toast.makeText(getActivity(), "Looks like you might be offline, turn on mobile data or wifi to continue 😉.", Toast.LENGTH_LONG).show();
             }else{
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Try again later", Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -245,7 +182,6 @@ public class PlaylistFragment extends Fragment {
     private void initViews(View view) {
         search = view.findViewById(R.id.btnFindPlaylist);
         paste = view.findViewById(R.id.btnPasteLink2);
-        downloadAll = view.findViewById(R.id.btnDownloadAll);
         cover = view.findViewById(R.id.imgPlaylistCover);
         title = view.findViewById(R.id.txtPlaylistTitle);
         artist = view.findViewById(R.id.txtPlaylistArtist);

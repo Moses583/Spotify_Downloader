@@ -136,14 +136,6 @@
                     android:id="@+id/txtAlbumSongs"
                     android:layout_toEndOf="@id/imgReleaseDate3"/>
             </RelativeLayout>
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_custom_one"
-                android:layout_margin="20dp"
-                android:text="Download all"
-                android:id="@+id/btnDownloadAll2"
-                android:layout_gravity="center"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
